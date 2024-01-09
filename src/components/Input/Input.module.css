@@ -1,0 +1,11 @@
+.inputContainer {
+    @apply flex items-center
+}
+
+.currencyContainer{
+ @apply px-[8px] py-[7px] bg-[#eeeeee] text-[#555555] border border-[#979797] text-[14px] font-semibold border-l-0
+}
+
+.input{
+    @apply px-[12px] py-[7px] border w-full border-[#979797] focus:border-blue-300 focus:shadow-md outline-0 text-right focus:shadow-blue-50 text-[14px] font-semibold
+}

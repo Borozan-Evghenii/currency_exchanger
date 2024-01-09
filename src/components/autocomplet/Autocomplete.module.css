@@ -1,0 +1,17 @@
+.container{
+    @apply absolute top-10 left-0 right-0 bg-[#fff] border border-[#979797] p-1
+}
+.inputContainer{
+    @apply flex items-center justify-center border border-[#979797] p-1
+}
+.input{
+    @apply w-full outline-0
+}
+
+.list{
+    @apply flex flex-col gap-1 pt-1
+}
+
+.listItem{
+    @apply font-normal text-[14px] hover:bg-blue-500 p-1 hover:text-[#fff] cursor-pointer
+}

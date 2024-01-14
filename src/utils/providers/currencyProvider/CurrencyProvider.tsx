@@ -1,41 +1,33 @@
 import React, { createContext } from 'react';
-import { Props } from '../../../../@types';
-
-interface IContextValue {
+import { CurrencySymbol } from '../../../../@types';
+interface ContextValueProps {
   baseCurrency: string;
   setBaseCurrency: React.Dispatch<React.SetStateAction<string>>;
   toCurrency: string;
   setToCurrency: React.Dispatch<React.SetStateAction<string>>;
-  rate: string;
-  setRate: React.Dispatch<React.SetStateAction<string>>;
-  amount1: string;
-  setAmount1: React.Dispatch<React.SetStateAction<string>>;
-  amount2: string;
-  setAmount2: React.Dispatch<React.SetStateAction<string>>;
+  currencySymbols: CurrencySymbol[] | undefined;
+  setCurrencySymbols: React.Dispatch<React.SetStateAction<CurrencySymbol[]| undefined>>
 }
+interface CurrencyProvider {
+  children: React.ReactNode;
+}
+export const CurrencyContext = createContext<ContextValueProps>({} as ContextValueProps);
 
-export const CurrencyContext = createContext<IContextValue>({} as IContextValue)
-const CurrencyProvider: React.FC<Props<'div'>> = ({children}) => {
+const CurrencyProvider: React.FC<CurrencyProvider> = ({ children }) => {
 
-  const [baseCurrency, setBaseCurrency] = React.useState<string>('UAH')
-  const [toCurrency, setToCurrency] = React.useState<string>('UAH')
-  const [rate, setRate] = React.useState<string>('')
-  const [amount1, setAmount1] = React.useState<string>('0')
-  const [amount2, setAmount2] = React.useState<string>('0')
+  const [baseCurrency, setBaseCurrency] = React.useState<string>('USD');
+  const [toCurrency, setToCurrency] = React.useState<string>('MDL');
+  const [currencySymbols, setCurrencySymbols] = React.useState<CurrencySymbol[] | undefined>([] as CurrencySymbol[]);
 
 
-   const contextValue:IContextValue  = {
+  const contextValue: ContextValueProps = {
     baseCurrency,
     setBaseCurrency,
     toCurrency,
     setToCurrency,
-    rate,
-    setRate,
-    amount1,
-    setAmount1,
-    amount2,
-    setAmount2
-  }
+    currencySymbols,
+    setCurrencySymbols
+  };
 
   return (
     <CurrencyContext.Provider value={contextValue}>

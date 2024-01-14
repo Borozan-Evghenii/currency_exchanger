@@ -1,65 +1,85 @@
-
 import * as React from 'react';
 import Input from '../components/Input/Input.tsx';
 import TabGroup from '../components/tabGroup/tabGroup.tsx';
-import { CurrencyContext } from '../utils/providers';
+import { useQuery } from '@tanstack/react-query';
+import { getCurrencies } from '../utils/api';
+import { useInput } from '../utils/hook/useInput/useInput.ts';
+import { useExchange } from '../utils/hook';
+import { getFullRatesFor } from '../utils/api/endpoints/getFullRatesFor.ts';
 
 
 const Homepage: React.FC = () => {
-  // const query = useQuery({ queryKey: ['currency'], queryFn: getCurrencies })
-  // console.log(query);
+
+  const amount1 = useInput();
+  const amount2 = useInput();
+  const { data: Symbols } = useQuery({ queryKey: ['symbols'], queryFn: getCurrencies });
+
   const {
-    amount1,
-    setAmount1,
-    amount2,
-    setAmount2,
     baseCurrency,
     setBaseCurrency,
     toCurrency,
     setToCurrency
+  } = useExchange();
 
-  } = React.useContext(CurrencyContext)
 
-  console.log('@amount2',amount2);
-  console.log('@amount1',amount1);
-  console.log('@baseCuery',baseCurrency);
-  console.log('@baseCuery',toCurrency);
+  const { data: Rates } = useQuery({ queryKey: ['rate', baseCurrency], queryFn: () => getFullRatesFor(baseCurrency) });
+  const exchangeFunc = () => {
+    if (Rates){
+      const rate = Rates[toCurrency] || 1
+      const num = Number(amount1.value)
+      const exchange: number = num * rate
+      amount2.setValue(exchange.toFixed(2).toString())
+    }
+  }
+
+
+  React.useEffect(() => {
+    exchangeFunc()
+  }, [baseCurrency, toCurrency, amount1.value]);
+
 
   return (
-    <div className='flex items-center content-center h-[100vh]'>
-      <div className='border border-[#979797] p-[20px] grid gap-4 w-[700px] mx-auto grid-cols-2'>
-
-        <div className='flex flex-col'>
+    <div className="flex items-center justify-center gap-[20px] mt-[100px] px-[20px] max-w-[1000px] mx-auto">
+      <div className="border border-[#979797] p-[20px] grid gap-4 w-[700px] grid-cols-2">
+        <div className="flex flex-col">
           <Input
             currency={baseCurrency}
             type="number"
-            value={amount1}
-            onChange={(event)=> setAmount1(event.target.value)}
+            value={amount1.value}
+            onChange={(event) => {
+              amount1.setValue(event.target.value);
+            }}
           />
           <TabGroup
+            listItem={Symbols}
             value={baseCurrency}
-            onSelect={(item)=> {
-              setBaseCurrency(item)
+            onSelect={(item) => {
+              setBaseCurrency(item.symbol);
             }}
           />
         </div>
-        <div className='flex flex-col'>
+        <div className="flex flex-col">
           <Input
             currency={toCurrency}
             type="number"
-            value={amount2}
-            onChange={(event)=> setAmount2(event.target.value)}
+            value={amount2.value}
+            onChange={(event) => {
+              amount2.setValue(event.target.value);
+
+            }}
           />
           <TabGroup
+            listItem={Symbols}
             value={toCurrency}
-            onSelect={(item)=> {
-              setToCurrency(item)
+            onSelect={(item) => {
+              setToCurrency(item.symbol);
             }}
           />
         </div>
 
-      </div>
 
+
+      </div>
     </div>
   );
 };

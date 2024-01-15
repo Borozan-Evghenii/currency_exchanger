@@ -1,8 +1,7 @@
 import React from 'react';
 import { useCurrencyRate, useCurrencySymbol, useExchangeContext } from '../../utils/hook';
-import { useInput } from '../../utils/hook/useInput/useInput.ts';
-import Input from '../../components/Input/Input.tsx';
-import TabGroup from '../../components/tabGroup/tabGroup.tsx';
+import { useInput } from '../../utils/hook';
+import { Input, TabGroup } from '../../components';
 
 const CurrencyExchanger: React.FC = () => {
   const {
@@ -11,8 +10,15 @@ const CurrencyExchanger: React.FC = () => {
     toCurrency,
     setToCurrency
   } = useExchangeContext();
-  const { Symbols } = useCurrencySymbol();
-  const { Rates } = useCurrencyRate(baseCurrency);
+
+  const {
+    Symbols ,
+  } = useCurrencySymbol();
+
+  const {
+    Rates,
+  } = useCurrencyRate(baseCurrency);
+
   const amount1 = useInput();
   const amount2 = useInput();
 
@@ -25,7 +31,6 @@ const CurrencyExchanger: React.FC = () => {
       amount2.setValue(exchange.toFixed(2).toString());
     }
   };
-
 
   React.useEffect(() => {
     exchangeFunc();

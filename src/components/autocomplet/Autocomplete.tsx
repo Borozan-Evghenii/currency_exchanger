@@ -8,7 +8,7 @@ interface AutocompleteProps{
   items: CurrencySymbol[] | undefined
 }
 
-const Autocomplete= React.forwardRef<HTMLDivElement, AutocompleteProps>(({ onSelect, initialValue,items }, ref) => {
+export const Autocomplete= React.forwardRef<HTMLDivElement, AutocompleteProps>(({ onSelect, initialValue,items }, ref) => {
 
   const [filteredList, setFilteredList] = React.useState<CurrencySymbol[] |undefined>(items);
   const [selectedItem, setSelectedItem] = React.useState<string >(initialValue );
@@ -47,8 +47,5 @@ const Autocomplete= React.forwardRef<HTMLDivElement, AutocompleteProps>(({ onSel
         </ul>
       </div>
     </div>
-
   );
 })
-
-export default Autocomplete;

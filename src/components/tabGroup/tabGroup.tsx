@@ -1,8 +1,8 @@
 import React from 'react';
-import Tab from '../tab/Tab.tsx';
 import { FaAngleDown } from 'react-icons/fa';
-import Autocomplete from '../autocomplet/Autocomplete.tsx';
 import { CurrencySymbol } from '../../../@types';
+import { Tab } from '../tab/Tab.tsx';
+import { Autocomplete } from '../autocomplet/Autocomplete.tsx';
 
 interface TabGroupProps {
   onSelect: (item: CurrencySymbol) => void;
@@ -11,7 +11,7 @@ interface TabGroupProps {
 
 }
 
-const TabGroup: React.FC<TabGroupProps> = ({ onSelect, value, listItem }) => {
+export const TabGroup: React.FC<TabGroupProps> = ({ onSelect, value, listItem }) => {
   const [select, setSelect] = React.useState<string | undefined>(value || 'UAH');
   const [showAutocomplete, setShowAutocomplete] = React.useState<boolean>(false);
   const [selectedAutocomplete, setSelectAutocomplete] = React.useState<string | null>(null);
@@ -73,6 +73,4 @@ const TabGroup: React.FC<TabGroupProps> = ({ onSelect, value, listItem }) => {
       )}
     </div>
   );
-};
-
-export default TabGroup;
+}

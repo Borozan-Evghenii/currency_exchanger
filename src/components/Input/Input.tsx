@@ -5,7 +5,7 @@ import { Props } from '../../../@types';
 interface InputProps extends Props<'input'>{
   currency: string
 }
-const Input: React.FC<InputProps> = ({currency, ...props}) => {
+export const Input: React.FC<InputProps> = ({currency, ...props}) => {
   return (
     <div className={style.inputContainer}>
       <input className={style.input} {...props}/>
@@ -15,5 +15,3 @@ const Input: React.FC<InputProps> = ({currency, ...props}) => {
     </div>
   );
 };
-
-export default Input;

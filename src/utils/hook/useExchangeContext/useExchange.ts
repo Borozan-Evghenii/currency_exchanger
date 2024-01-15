@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { CurrencyContext } from '../../providers';
 
-export const useExchange = () => {
+export const useExchangeContext = () => {
   return useContext(CurrencyContext)
 }

@@ -1,40 +1,36 @@
 import * as React from 'react';
 import Input from '../components/Input/Input.tsx';
 import TabGroup from '../components/tabGroup/tabGroup.tsx';
-import { useQuery } from '@tanstack/react-query';
-import { getCurrencies } from '../utils/api';
 import { useInput } from '../utils/hook/useInput/useInput.ts';
-import { useExchange } from '../utils/hook';
-import { getFullRatesFor } from '../utils/api/endpoints/getFullRatesFor.ts';
+import { useCurrencyRate, useExchangeContext } from '../utils/hook';
+import { useCurrencySymbol } from '../utils/hook';
 
 
 const Homepage: React.FC = () => {
-
-  const amount1 = useInput();
-  const amount2 = useInput();
-  const { data: Symbols } = useQuery({ queryKey: ['symbols'], queryFn: getCurrencies });
-
   const {
     baseCurrency,
     setBaseCurrency,
     toCurrency,
     setToCurrency
-  } = useExchange();
+  } = useExchangeContext();
+  const { Symbols } = useCurrencySymbol();
+  const { Rates } = useCurrencyRate(baseCurrency);
+  const amount1 = useInput();
+  const amount2 = useInput();
 
 
-  const { data: Rates } = useQuery({ queryKey: ['rate', baseCurrency], queryFn: () => getFullRatesFor(baseCurrency) });
   const exchangeFunc = () => {
-    if (Rates){
-      const rate = Rates[toCurrency] || 1
-      const num = Number(amount1.value)
-      const exchange: number = num * rate
-      amount2.setValue(exchange.toFixed(2).toString())
+    if (Rates) {
+      const rate = Rates[toCurrency] || 1;
+      const num = Number(amount1.value);
+      const exchange: number = num * rate;
+      amount2.setValue(exchange.toFixed(2).toString());
     }
-  }
+  };
 
 
   React.useEffect(() => {
-    exchangeFunc()
+    exchangeFunc();
   }, [baseCurrency, toCurrency, amount1.value]);
 
 
@@ -76,8 +72,6 @@ const Homepage: React.FC = () => {
             }}
           />
         </div>
-
-
 
       </div>
     </div>

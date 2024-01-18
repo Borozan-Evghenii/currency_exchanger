@@ -19,10 +19,10 @@ const CurrencyExchanger: React.FC = () => {
     Rates,
   } = useCurrencyRate(baseCurrency);
 
-  const amount1 = useInput();
-  const amount2 = useInput();
+  const amount1 = useInput('100');
+  const amount2 = useInput('100');
 
-
+  console.log();
   const exchangeFunc = () => {
     if (Rates) {
       const rate = Rates[toCurrency] || 1;
@@ -38,7 +38,6 @@ const CurrencyExchanger: React.FC = () => {
 
 
   return (
-    <div className="flex items-center justify-center gap-[20px] mt-[100px] px-[20px] max-w-[1000px] mx-auto">
       <div className="border border-[#979797] p-[20px] grid gap-4 w-[700px] grid-cols-2">
         <div className="flex flex-col">
           <Input
@@ -77,7 +76,6 @@ const CurrencyExchanger: React.FC = () => {
         </div>
 
       </div>
-    </div>
   );
 };
 

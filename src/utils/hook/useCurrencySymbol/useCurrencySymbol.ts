@@ -8,9 +8,16 @@ export const useCurrencySymbol = () => {
     isLoading,
     isError,
     error
-  } = useQuery({ queryKey: ['symbols'], queryFn: getCurrencies , select: (data) => {
-      return Object.entries(data?.data?.currencies).map(([symbol, value]: [string, any]): CurrencySymbol => ({ symbol: symbol, name: value}))
-    }});
+  } = useQuery({
+    queryKey: ['symbols'],
+    queryFn: getCurrencies,
+    select: (data) => {
+      return Object.entries(data?.data?.currencies).map(([symbol, value]: [string, any]): CurrencySymbol => ({
+        symbol: symbol,
+        name: value
+      }));
+    }
+  });
 
   return { Symbols, isLoading, isError, error };
 };

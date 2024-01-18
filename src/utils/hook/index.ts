@@ -1,4 +1,6 @@
 export * from './useExchangeContext/useExchange.ts'
 export * from './useCurrencySymbol/useCurrencySymbol.ts'
 export * from './useCurrencyRate/useCurrencyRate.ts'
+export * from './useRateChanges/useRateChanges.ts'
+export * from './useDebounce/useDebounce.ts'
 export * from './useInput/useInput.ts'

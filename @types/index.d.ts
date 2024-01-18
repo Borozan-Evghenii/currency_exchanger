@@ -1,18 +1,15 @@
 import { ComponentPropsWithRef } from 'react'
 export type Props<T> = import('react').ComponentPropsWithRef<T>;
-
 interface ServerData {
   status: number;
   terms: string;
   privacy: string;
 }
-
 interface ServerCurrenciesSymbols extends ServerData {
   currencies: {
     [key: string]: string
   };
 }
-
 interface ServerCurrenciesRate extends ServerData {
   timestamp: number;
   source: string;
@@ -21,13 +18,18 @@ interface ServerCurrenciesRate extends ServerData {
   };
 }
 
-interface ServerCurrenciesHistorical extends ServerData {
-  historical: boolean,
-  date: string,
-  timestamp: number;
-  source: string;
+interface ServerCurrencyChange extends ServerData {
+  change: boolean
+  start_date: string
+  end_date: string
+  source: string
   quotes: {
-    [key: string]: number
+    [key:string] : {
+      start_rate: number
+      end_rate: number
+      change: number
+      change_pct: number
+    }
   }
 }
 
@@ -38,4 +40,13 @@ type CurrencySymbol = {
 
 type CurrencyRate = {
   [key: string]: number
+}
+
+type ChangeCurrency = {
+  [key: string]: {
+    start_rate: number
+    end_rate: number
+    change: number
+    change_pct: number
+  }
 }

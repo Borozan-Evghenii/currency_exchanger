@@ -5,13 +5,11 @@ interface ListProps<T> {
   styles? :string
   renderItem : (item: T) => React.ReactNode
 }
-export const List = <T extends {id: number}> ({data, renderItem, styles}: ListProps<T>) => {
+export const List = <T extends {}> ({data, renderItem, styles}: ListProps<T>) => {
   return (
     <div className={styles}>
       {data.map((item)=> (
-        <React.Fragment key={item.id}>
-          {renderItem(item)}
-        </React.Fragment>
+          renderItem(item)
       ))}
     </div>
   );

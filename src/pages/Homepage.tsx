@@ -6,9 +6,9 @@ import CurrencyRateListFromDate from '../module/currencyRateListFromDate/Currenc
 const Homepage: React.FC = () => {
 
   return (
-    <div  className='flex flex-col items-center justify-center gap-[20px] mt-[100px] max-w-[700px] mx-auto'>
+    <div className="flex flex-col items-center justify-center gap-[20px] mt-[100px] max-w-[700px] mx-auto">
       <CurrencyExchanger />
-      <CurrencyRateListFromDate/>
+      <CurrencyRateListFromDate />
     </div>
   );
 };

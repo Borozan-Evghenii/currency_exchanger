@@ -12,11 +12,10 @@ export const useCurrencyRate = (baseCurrency: string) => {
     queryKey: ['rate', baseCurrency],
     queryFn: () => getFullRatesFor(baseCurrency),
     select: data => {
-      const object = data.data.quotes;
+      const { quotes, source } = data.data;
       const newObject: CurrencyRate = {};
-
-      Object.entries(object).forEach(([key, value]) => {
-        const newKey: string = key.replace(new RegExp(data.data.source), '');
+      Object.entries(quotes).forEach(([key, value]) => {
+        const newKey: string = key.replace(new RegExp(source), '');
         newObject[newKey] = value
       });
       return newObject

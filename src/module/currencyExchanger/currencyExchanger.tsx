@@ -22,7 +22,7 @@ const CurrencyExchanger: React.FC = () => {
   const amount1 = useInput('100');
   const amount2 = useInput('100');
 
-  console.log();
+
   const exchangeFunc = () => {
     if (Rates) {
       const rate = Rates[toCurrency] || 1;
@@ -35,7 +35,6 @@ const CurrencyExchanger: React.FC = () => {
   React.useEffect(() => {
     exchangeFunc();
   }, [baseCurrency, toCurrency, amount1.value]);
-
 
   return (
       <div className="border border-[#979797] p-[20px] grid gap-4 w-[700px] grid-cols-2">

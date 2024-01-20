@@ -1,39 +1,71 @@
 import React from 'react';
 import { DateRangeFilter, List } from '../../components';
 import { ChangeListItem } from '../../components/listItems';
+import { ChangeCurrency, FilterDataResult } from '../../../@types';
 import { useRateChanges } from '../../utils/hook';
 
 const CurrencyRateListFromDate: React.FC = () => {
+  const mock: ChangeCurrency[] = [
+    {
+      symbol: 'USA',
+      start_rate: 0.0003,
+      end_rate: -0.0003,
+      change: 0.35,
+      change_pct: 0.355
+    },
+    {
+      symbol: 'MDL',
+      start_rate: 0.0003,
+      end_rate: -0.0003,
+      change: 0.35,
+      change_pct: 0.355
+    },
+    {
+      symbol: 'UAH',
+      start_rate: 0.0003,
+      end_rate: -0.0003,
+      change: -0.35,
+      change_pct: 0.355
+    },
+    {
+      symbol: 'AAF',
+      start_rate: 0.0003,
+      end_rate: -0.0003,
+      change: 0.35,
+      change_pct: 0.355
+    },
+    {
+      symbol: 'NAC',
+      start_rate: 0.0003,
+      end_rate: -0.0003,
+      change: 0.35,
+      change_pct: 0.355
+    },
+    {
+      symbol: 'LAS',
+      start_rate: 0.0003,
+      end_rate: -0.0003,
+      change: -0.35,
+      change_pct: 0.355
+    }
+  ];
+  const [date, setDate  ] = React.useState<FilterDataResult>({} as FilterDataResult)
 
-  const { ChangesRate } = useRateChanges('2024-01-01', '2024-01-02');
-  console.log(ChangesRate);
+  const { ChangesRate } = useRateChanges(date?.start_data, date?.end_data);
+
+
   return (
     <div className="flex flex-col border border-[#a4a4a4] p-[20px] w-full gap-[20px]">
-      <h2 className="text-xl">Валютный курс Национального Банка (НБМ) </h2>
-      <DateRangeFilter />
-      <List
-        styles={'flex flex-col gap-2'}
-        renderItem={(item) => <ChangeListItem data={item} />}
-        data={[]}
+      <h2 className="text-xl">Валютный курс Национального Банка (НБМ)</h2>
+      <DateRangeFilter
+        onSelect={(data) => setDate(data)}
       />
-      <table>
-        <thead>
-        <tr>
-          <th>Symbol</th>
-          <th>Start</th>
-          <th>End</th>
-          <th>Difference</th>
-          <th>Difference pct</th>
-        </tr>
-        </thead>
-        <tbody>
-          {ChangesRate?.map(item => (
-            <tr>
-              <th>{item}</th>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      {mock && (
+        <List
+          styles={'flex flex-col gap-2'}
+          renderItem={(item) => <ChangeListItem data={item} key={item.symbol} />}
+          data={mock}
+        />)}
     </div>
   );
 };
